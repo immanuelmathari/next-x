@@ -16,7 +16,7 @@ export default function Sidebar() {
         <GoHomeFill className='w-16 h-16'/>
         <span className='font-bold hidden xl:inline'>Home</span>
         </Link>
-        <button className='bg-blue-400 text-white font-bold rounded-full px-2 mt-4 hover:brightness-90 shadow-md transition-all duration-200 w-48 h-9 hidden xl:inline'>
+        <button className='bg-blue-400 text-white font-bold rounded-full px-2 mt-4 hover:brightness-90 shadow-md transition-all duration-200 w-48 h-9 hidden xl:inline font-semibold'>
             Sign in
         </button>
     </div>
