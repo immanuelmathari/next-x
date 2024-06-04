@@ -8,6 +8,8 @@ import { app } from '../firebase'
 import { useRecoilState } from 'recoil';
 import { modalState , postIdState } from '@/atom/modalAtom';
 
+
+
 export default function Icons({id, uid}) {
     // ensure that the person is authenticated
     const {data: session} = useSession();
@@ -16,6 +18,7 @@ export default function Icons({id, uid}) {
     const [likes, setLikes] = useState([]);
     const [open, setOpen] = useRecoilState(modalState);
     const [postId, setPostId] = useRecoilState(postIdState)
+    const [comments, setComments] = useState([]);
 
     // we initialize the database
     const db = getFirestore(app);
@@ -68,8 +71,18 @@ export default function Icons({id, uid}) {
             }
         }
     }
+
+    // to show comments count
+useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'posts', id, 'comments'), (snapshot) => {
+        setComments(snapshot.docs)
+    })
+    return () => unsubscribe()
+}, [db,id]) // we do the function when db or id changes
   return (
     <div className='flex justify-start gap-5 p-2 text-gray-500'>
+        <div className='flex items-center'>
+
         <HiOutlineChat onClick={() => {
             if(!session) {
                 signIn()
@@ -78,6 +91,12 @@ export default function Icons({id, uid}) {
                 setPostId(id);
             }
         }} className='h-8 w-8 cursor-pointer rounded-full transition duration-500 ease-in-out p-2 hover:text-sky-500 hover:bg-sky-100' />
+        {
+            comments.length > 0 && (
+                <span className='text-xs'>{comments.length}</span>
+            )
+        }
+        </div>
         <div className='flex items-center'>
         {isLiked ? (
                     <HiHeart onClick={likePost} className='h-8 w-8 cursor-pointer rounded-full transition duration-500 ease-in-out p-2 text-red-600 hover:text-red-500 hover:bg-red-100' />
