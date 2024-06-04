@@ -4,6 +4,7 @@ import React from 'react'
 import { HiArrowLeft } from 'react-icons/hi';
 import Link from 'next/link';
 import Post from '@/components/Post';
+import Comments from '@/components/Comments';
 
 // we fetch data from the parameters
 export default async function page({params}) {
@@ -25,6 +26,8 @@ export default async function page({params}) {
       </div>
       {/* we use the post component already created and we pass the data */}
       <Post post={data} id={data.id} />
+      {/* with this id, we get post and we can therfore get the comments */}
+      <Comments id={params.id} />
     </div>
   )
 }
