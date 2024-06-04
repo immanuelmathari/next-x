@@ -24,7 +24,7 @@ export default function Post({post, id}) {
           <img src={post?.image} className='rounded-2xl mr-2' />
         </Link>
         {/* in order to say like we need to have id of the post */}
-        <Icons id={id} />
+        <Icons id={id} uid={post.uid} />
       </div>
     </div>
   )

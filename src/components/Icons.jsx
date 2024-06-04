@@ -6,7 +6,7 @@ import { signIn, useSession } from 'next-auth/react'
 import { collection, deleteDoc, doc, getFirestore, onSnapshot, serverTimestamp, setDoc } from 'firebase/firestore';
 import { app } from '../firebase'
 
-export default function Icons({id}) {
+export default function Icons({id, uid}) {
     // ensure that the person is authenticated
     const {data: session} = useSession();
 
@@ -47,6 +47,23 @@ export default function Icons({id}) {
         // check each like and check if its equal to our id
         setIsLiked(likes.findIndex((like) => like.id === session?.user?.uid) !== -1);
     }, [likes]);
+
+    const deletePost = async() => {
+        if(window.confirm('Are you sure you want to delete this post?')) {
+            if(session?.user?.uid === uid)
+            {
+                deleteDoc(doc(db, 'posts', id)).then(() => {
+                    console.log("Successfully deleted");
+                    // we want to see a new page
+                    window.location.reload();
+                }).catch((error) => {
+                    console.log("Error removing documents: " , error)}
+                );
+            } else {
+                alert("You are not authorized to delete this post");
+            }
+        }
+    }
   return (
     <div className='flex justify-start gap-5 p-2 text-gray-500'>
         <HiOutlineChat className='h-8 w-8 cursor-pointer rounded-full transition duration-500 ease-in-out p-2 hover:text-sky-500 hover:bg-sky-100' />
@@ -60,7 +77,10 @@ export default function Icons({id}) {
         )}
         {likes.length > 0 && <span className={`text-xs ${isLiked && "text-red-600"}`}>{likes.length}</span>}
         </div>
-        <HiOutlineTrash className='h-8 w-8 cursor-pointer rounded-full transition duration-500 ease-in-out p-2 hover:text-red-500 hover:bg-red-100' />
+
+        {session?.user?.uid === uid && (
+            <HiOutlineTrash onClick={deletePost} className='h-8 w-8 cursor-pointer rounded-full transition duration-500 ease-in-out p-2 hover:text-red-500 hover:bg-red-100' />
+        )}
     </div>
   )
 }
