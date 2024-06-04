@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import React from 'react'
 import { HiDotsHorizontal } from 'react-icons/hi'
+import Icons from './Icons'
 
 export default function Post({post, id}) {
   return (
-    <div className='flex p-3 border-b border-gray-200'>
+    <div className='flex p-3 border-b border-gray-200 hover:bg-gray-50'>
       {/* This ? is optional chaining operator. It checks 
       if post is not null or undefined before trying to access profileImg */}
       <img src={post?.profileImg} alt='user-img' className='h-11 w-11 rounded-full mr-4' />
@@ -22,6 +23,7 @@ export default function Post({post, id}) {
         <Link href={`/posts/${id}`} >
           <img src={post?.image} className='rounded-2xl mr-2' />
         </Link>
+        <Icons />
       </div>
     </div>
   )
