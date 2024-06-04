@@ -14,8 +14,9 @@ const handler = NextAuth({
     // to get the username
     callbacks: {
         async session({session,token}){
+            // console.log("Token is :", token); // Log the token to inspect its properties
             session.user.username = session.user.name.split(" ").join('').toLocaleLowerCase();
-            session.user.uid = token.auth;
+            session.user.uid = token.sub;
             return session;
         }
     }

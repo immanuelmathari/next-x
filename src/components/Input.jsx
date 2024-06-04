@@ -61,10 +61,16 @@ export default function Input() {
         );
     };
 
+    // const generateUniqueId = () => {
+    //     return 'uid-' + Math.random().toString(36).substr(2, 9) + '-' + Date.now();
+    // };
+
     const handleSubmit = async() => {
         setPostLoading(true);
+        // const uniqueUid = generateUniqueId();
+        // const uid = session?.user?.uid || uniqueUid;
         const docRef = await addDoc(collection(db, 'posts'), {
-            // uid: session.user.uid,
+            uid: session.user.uid,
             // i dont know why this gives me an error
             name: session.user.name,
             username: session.user.username,
