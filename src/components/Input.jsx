@@ -78,6 +78,8 @@ export default function Input() {
         setText('');
         setImageFileUrl(null);
         setSelectedFile(null);
+        // whenever server posts to client, it caches the data and will need a page refresh
+        location.reload();
     }
 
     if(!session) return null;
