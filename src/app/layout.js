@@ -21,7 +21,8 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         
         <div className='flex justify-between max-w-6xl mx-auto'>
-          <div className='hidden sm:inline border-r h-screen sticky top-0'>
+          {/* to see it all the way down the h-screen */}
+          <div className='hidden sm:inline border-r h-screen sticky top-0'> 
             <Sidebar/>
           </div>
 

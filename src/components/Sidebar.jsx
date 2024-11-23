@@ -19,7 +19,7 @@ export default function Sidebar() {
             
         </Link>
 
-        <Link href='/' className='flex items-center p- hover:bg-gray-100 rounded-full trasition-all duration-200 gap-2 w-fit'>
+        <Link href='/' className='flex items-center p-3 hover:bg-gray-100 rounded-full trasition-all duration-200 gap-2 w-fit'>
         <GoHomeFill className='w-16 h-16'/>
         <span className='font-bold hidden xl:inline'>Home</span>
         </Link>
