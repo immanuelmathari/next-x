@@ -67,6 +67,7 @@ export default function Input() {
     //     return 'uid-' + Math.random().toString(36).substr(2, 9) + '-' + Date.now();
     // };
 
+    // see where it is comming from in the return
     const handleSubmit = async() => {
         setPostLoading(true);
         // const uniqueUid = generateUniqueId();
