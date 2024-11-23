@@ -26,6 +26,7 @@ export default function RootLayout({ children }) {
             <Sidebar/>
           </div>
 
+{/* In Tailwind CSS, flex-1 is a class that allows a flex item to grow and shrink while ignoring its initial size */}
         <div className='flex-1'>
         {children}
         </div>
