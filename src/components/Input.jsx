@@ -20,7 +20,8 @@ export default function Input() {
     const addImaageToPost = (e) => {
         const file = e.target.files[0];
         if(file) {
-            setSelectedFile(file);
+            setSelectedFile(file); // this is what is chosen when we select the file. just the file
+            // but we want to show it using an image tag so we convert it to an imageURL
             setImageFileUrl(URL.createObjectURL(file));
             // console.log(file);
             // console.log(imageFileUrl);
@@ -31,12 +32,13 @@ export default function Input() {
         if(selectedFile) {
             uploadImageToStorage();
         }
-    }, [selectedFile]);
+    }, [selectedFile]); // we call the function below any time there is a selected file
 
     const uploadImageToStorage = () => {
         setImageFileUpload(true);
+        // to be able to store in firebase, we need to import storage from firebase and we pass our application which is in firebase.js and to be able to connect, we import the app from firebase the next ones.
         const storage = getStorage(app);
-        const fileName = new Date().getTime() + '-' + selectedFile.name;
+        const fileName = new Date().getTime() + '-' + selectedFile.name; // should be unique.
         const storageRef = ref(storage, fileName);
         const uploadTask = uploadBytesResumable(storageRef, selectedFile);
         uploadTask.on(
@@ -95,6 +97,7 @@ export default function Input() {
         <div className='w-full divide-y divide-gray-200'>
             {/* tracking is space between letters. divide like adds a horizontal rule hr */}
             <textarea rows='2' placeholder='whats happening' className='w-full border-none outline-none tracking-wide min-h-[50px] text-gray-700' value={text} onChange={(e) => setText(e.target.value)}></textarea>
+            {/* this comes after the addImaageToPost function and the div below it. allows you to see the image you select */}
             {
                 selectedFile && (
                     // the image pulse like makes it blink as it is uploading. fantastic. simple wonderful
